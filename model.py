@@ -1,10 +1,20 @@
 import tensorflow as tf
-import json
+import pickle
+import os
 
 def load_model_and_encoder():
-    model = tf.keras.models.load_model("patternnet_model.h5")
+    model_path = os.path.join(os.path.dirname(__file__), "patternnet_model.h5")
+    encoder_path = os.path.join(os.path.dirname(__file__), "label_encoder.pkl")
 
-    with open("label_encoder.pkl", "r") as f:
-        label_encoder = json.load(f)
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model not found: {model_path}")
+
+    if not os.path.exists(encoder_path):
+        raise FileNotFoundError(f"Label Encoder not found: {encoder_path}")
+
+    model = tf.keras.models.load_model(model_path)
+
+    with open(encoder_path, "rb") as f:
+        label_encoder = pickle.load(f)
 
     return model, label_encoder
