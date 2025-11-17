@@ -3,8 +3,8 @@ import pickle
 import os
 
 def load_model_and_encoder():
-    model_path = os.path.join(os.path.dirname(__file__), "patternnet_model.h5")
-    encoder_path = os.path.join(os.path.dirname(__file__), "label_encoder.pkl")
+    model_path = "patternnet_model.h5"
+    encoder_path = "label_encoder.pkl"
 
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model not found: {model_path}")
